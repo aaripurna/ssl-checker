@@ -29,4 +29,5 @@ jobs:
         TELEGRAM_CHAT_ID: ${{ env.TELEGRAM_CHAT_ID }}
         DAYS_THRESHOLD: ${{ env.DAYS_THRESHOLD }}
       run: |
+        printenv
         python main.py
