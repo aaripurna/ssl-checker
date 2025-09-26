@@ -24,5 +24,9 @@ jobs:
       with:
         python-version: "3.10"
     - name: Run application
+      env:
+        TELEGRAM_ACCESS_TOKEN: ${{ env.TELEGRAM_ACCESS_TOKEN }}
+        TELEGRAM_CHAT_ID: ${{ env.TELEGRAM_CHAT_ID }}
+        DAYS_THRESHOLD: ${{ env.DAYS_THRESHOLD }}
       run: |
         python main.py
