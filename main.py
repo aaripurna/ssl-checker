@@ -5,10 +5,12 @@ from urllib.error import HTTPError
 import urllib.request
 import json
 import os
+from multiprocessing import Pool
 
 DAYS_THRESHOLD=os.getenv("DAYS_THRESHOLD") or "2"
 TELEGRAM_ACCESS_TOKEN=os.getenv("TELEGRAM_ACCESS_TOKEN")
 TELEGRAM_CHAT_ID=os.getenv("TELEGRAM_CHAT_ID")
+HOSTS=os.getenv("HOSTS")
 
 class InvalidArgumentError(Exception):
     pass
@@ -94,4 +96,8 @@ def check_ssl_status(hostname: str) -> None:
     except Exception as e:
         print(f"An unexpected error occurred for {hostname}: {e}")
 
-check_ssl_status("ecoclean.co.id")
+if __name__ == '__main__':
+    with Pool(processes=4) as pool:
+        hosts = HOSTS.split(",")
+
+        pool.map(check_ssl_status, hosts)
